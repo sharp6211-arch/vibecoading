@@ -1,2 +1,2 @@
 # vibecoading
-설명하는 공간
+ https://sharp6211-arch.github.io/vibecoading/
