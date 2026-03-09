@@ -58,61 +58,16 @@ const chatbotInput = document.getElementById('chatbotInput');
 const chatbotSend = document.getElementById('chatbotSend');
 const chatbotMessages = document.getElementById('chatbotMessages');
 const quickReplies = document.querySelectorAll('.quick-reply');
-const apiKeyScreen = document.getElementById('apiKeyScreen');
-const chatScreen = document.getElementById('chatScreen');
-const apiKeyInput = document.getElementById('apiKeyInput');
-const apiKeySaveBtn = document.getElementById('apiKeySaveBtn');
 let conversationHistory = [];
-
-function showChatScreen() {
-    apiKeyScreen.style.display = 'none';
-    chatScreen.style.display = 'flex';
-}
-
-function showApiKeyScreen() {
-    apiKeyScreen.style.display = 'flex';
-    chatScreen.style.display = 'none';
-}
 
 chatbotToggle.addEventListener('click', () => {
     chatbotWindow.classList.add('active');
     chatbotToggle.classList.add('active');
-
-    if (CONFIG.OPENAI_API_KEY) {
-        showChatScreen();
-    } else {
-        showApiKeyScreen();
-    }
 });
 
 chatbotClose.addEventListener('click', () => {
     chatbotWindow.classList.remove('active');
     chatbotToggle.classList.remove('active');
-});
-
-apiKeySaveBtn.addEventListener('click', () => {
-    const key = apiKeyInput.value.trim();
-    if (!key) {
-        apiKeyInput.style.borderColor = '#f44336';
-        apiKeyInput.setAttribute('placeholder', 'API 키를 입력해주세요!');
-        return;
-    }
-    if (!key.startsWith('sk-')) {
-        apiKeyInput.style.borderColor = '#f44336';
-        apiKeyInput.value = '';
-        apiKeyInput.setAttribute('placeholder', 'sk-로 시작하는 올바른 키를 입력해주세요');
-        return;
-    }
-    localStorage.setItem('openai_api_key', key);
-    showChatScreen();
-    addBotMessage('🔑 API 키가 설정되었습니다!\n\n이제 무엇이든 물어보세요. 😊\n아파트 분양 상담은 물론, 일반 상식 질문도 가능합니다!');
-});
-
-apiKeyInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        apiKeySaveBtn.click();
-    }
-    apiKeyInput.style.borderColor = '';
 });
 
 function addUserMessage(message) {
